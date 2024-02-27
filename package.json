@@ -4,7 +4,7 @@
   "description": "ChatBot for Sunny Hill Health Centre",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start":"node index.js"
   },
   "author": "Reza Mursalin Sabid",
   "license": "ISC",
