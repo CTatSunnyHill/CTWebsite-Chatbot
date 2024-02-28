@@ -15,8 +15,7 @@ router.post('/api/df_text_query', async (req,res)=>{
     const response = await chatbot.textQuery(req.body.text,req.body.parameters)
     res.status(201).send(response[0].queryResult)
   } catch(e){
-    throw new Error("Error:", e)
-    res.status(400).send({ error: e.message })
+    res.status(400).send()
   }
 })
 
