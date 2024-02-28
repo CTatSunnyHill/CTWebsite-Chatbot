@@ -4,12 +4,18 @@
   "description": "ChatBot for Sunny Hill Health Centre",
   "main": "index.js",
   "scripts": {
-    "start":"node index.js"
+    "start": "node index.js",
+    "backend": "nodemon index.js"
   },
   "author": "Reza Mursalin Sabid",
   "license": "ISC",
   "dependencies": {
     "chalk": "^2.4.1",
-    "express": "^4.16.4"
+    "dialogflow": "^1.2.0",
+    "express": "^4.16.4",
+    "structjson": "^1.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.5"
   }
 }
