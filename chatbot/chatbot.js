@@ -1,15 +1,13 @@
-'use strict'
+"use strict"
 
 const dialogFlow = require('dialogflow')
 const config = require('../config/keys')
 const structjson = require('structjson')
-const { googlePrivateKey } = require('../config/dev')
 
 const projectID = config.googleProjectID
-const privateKey = Buffer.from(process.env.GOOGLE_PRIVATE_KEY, 'base64').toString('utf-8')
 const credentials = {
     client_email: config.googleClientEmail,
-    private_key: privateKey
+    private_key: config.googlePrivateKey
 }
 
 const sessionClient = new dialogFlow.SessionsClient({projectID, credentials})
