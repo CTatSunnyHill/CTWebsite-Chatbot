@@ -7,7 +7,7 @@ const structjson = require('structjson')
 const projectID = config.googleProjectID
 const credentials = {
     client_email: config.googleClientEmail,
-    private_key: config.googlePrivateKey
+    private_key: config.googlePrivateKey.replace(/\\n/gm, '\n')
 }
 
 const sessionClient = new dialogFlow.SessionsClient({projectID, credentials})
