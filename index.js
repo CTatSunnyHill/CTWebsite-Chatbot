@@ -1,15 +1,15 @@
 const express = require('express')
 const chalk = require('chalk')
 const config = require('./config/keys')
-const mongoose = require('mongoose')
+// const mongoose = require('mongoose')
 const app = express()
 const dFRouter = require('./router/dialogFlowRouter')
-require('./model/Registration')
+// require('./model/Registration')
 
 
-mongoose.connect(config.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected successfully.'))
-  .catch(err => console.error('MongoDB connection error:', err));
+// mongoose.connect(config.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+//   .then(() => console.log('MongoDB connected successfully.'))
+//   .catch(err => console.error('MongoDB connection error:', err));
 
 
 
@@ -26,18 +26,18 @@ app.listen(port, ()=>{
 })
 
 
-const Registration = mongoose.model('registration');
+// const Registration = mongoose.model('registration');
 
-app.get('/', async (req, res) => {
-    try {
-        const latestLocation = await Registration.findOne().sort({ dateSent: -1 })
-        console.log(req.json(latestLocation))
+// app.get('/', async (req, res) => {
+//     try {
+//         const latestLocation = await Registration.findOne().sort({ dateSent: -1 })
+//         console.log(req.json(latestLocation))
        
-    } catch (error) {
-        console.error('Error fetching latest location:', error);
-        res.status(500).send('Internal Server Error');
-    }
-});
+//     } catch (error) {
+//         console.error('Error fetching latest location:', error);
+//         res.status(500).send('Internal Server Error');
+//     }
+// });
 
 if (process.env.NODE_ENV === 'production') {
     // js and css files
