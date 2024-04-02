@@ -1,0 +1,4 @@
+
+.Bullet::before {
+  content : "\2022  ";  
+}

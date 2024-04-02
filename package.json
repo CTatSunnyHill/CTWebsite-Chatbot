@@ -5,17 +5,28 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "backend": "nodemon index.js"
+    "backend": "nodemon index.js",
+    "frontend": "npm run start --prefix client",
+    "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Reza Mursalin Sabid",
   "license": "ISC",
   "dependencies": {
+    "@here/maps-api-for-javascript": "^1.52.0",
+    "@react-google-maps/api": "^2.19.3",
+    "actions-on-google": "^2.14.0",
     "chalk": "^2.4.1",
     "dialogflow": "^1.2.0",
+    "dialogflow-fulfillment": "^0.6.1",
     "express": "^4.16.4",
+    "mongodb": "^3.1.10",
+    "mongoose": "^8.2.2",
     "structjson": "^1.0.1"
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
+    "http-proxy-middleware": "^2.0.6",
     "nodemon": "^1.18.5"
   }
 }

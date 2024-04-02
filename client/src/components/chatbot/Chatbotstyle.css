@@ -1,0 +1,61 @@
+/* ChatbotStyle.css */
+
+.chatbot-container {
+    background-color: white;
+    min-height: 500px;
+    max-height: 500px;
+    width: 400px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Example shadow */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-wrapper-chatbot {
+    background-color: #ffc107; /* amber lighten-1 */
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 10px; /* Adjust as needed */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-left {
+    width: 40px; /* Adjust the size as needed */
+    height: 40px; /* Should be the same as width for a circle */
+    border-radius: 50%; /* Makes the image round */
+    object-fit: cover; /* Keeps the aspect ratio of the image */
+    margin-right: 10px; /* Adds some space between the logo and text */
+    float: left; /* Ensures the logo is on the left */
+}
+
+.brand-logo-chatbot {
+    font-family: 'COPPERPLATE', fantasy; /* Replace with your font family */
+    font-size: 24px; /* Adjust the size as needed */
+    display: inline; /* Inline display for proper alignment */
+    line-height: 40px; /* Adjust line height to vertically center text with the logo */
+    float: left; /* Ensures the text follows the logo */
+    margin: 0; /* Removes default margin */
+    padding: 0; /* Removes default padding */
+}
+
+.right {
+    display: flex;
+}
+
+.chat-close {
+    cursor: pointer;
+    padding: 0 10px;
+    display: flex;
+    align-items: center; /* Align the 'X' vertically */
+    margin-left: 20px; /* Add some space between the 'X' and the right edge of the navbar */
+    /* other styles */
+}
+
+/* Add other styles for messages, cards, inputs etc. as needed */

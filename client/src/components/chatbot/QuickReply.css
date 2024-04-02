@@ -1,0 +1,38 @@
+/* QuickReply.css */
+.quick-replies-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align to the right like iMessage */
+    padding: 10px;
+}
+
+.quick-replies-text {
+    background-color: #e5e5ea; /* Light grey background */
+    border-radius: 20px;
+    padding: 10px 15px;
+    max-width: 80%; /* Ensure text does not span full width */
+    word-wrap: break-word; /* Ensure long text wraps */
+    margin-bottom: 10px;
+}
+
+.quick-replies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Align quick replies to the right */
+}
+
+.quick-reply-btn {
+    background-color: #0b93f6; /* Blue, similar to iMessage */
+    border-radius: 20px; /* Rounded corners for bubble effect */
+    color: white;
+    padding: 8px 20px;
+    margin: 0 10px;
+    /* margin-right: 10px; Spacing between buttons */
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.quick-reply-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
