@@ -34,6 +34,7 @@ const ItemList = () => {
               <li class="Bullet">Adapting the system to modify the gym on the 3rd floor to replicate various floor settings, such as basketball or football courts, catering to different sports and activities.</li>
               <li class="Bullet">Implementing the same system in the Motion Lab to keep children motivated during analysis sessions, ensuring active participation and accurate data collection for assessments.</li>
             </ul>
+            
 
           </div>
        </>
