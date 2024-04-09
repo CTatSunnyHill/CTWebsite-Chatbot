@@ -2,8 +2,10 @@
 .quick-replies-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Align to the right like iMessage */
-    padding: 10px;
+    /* align-items: flex-start; Align to the right like iMessage */
+    align-items: center;
+    justify-content: space-around;
+    padding: 1px;
 }
 
 .quick-replies-text {
@@ -26,7 +28,8 @@
     border-radius: 20px; /* Rounded corners for bubble effect */
     color: white;
     padding: 8px 20px;
-    margin: 0 10px;
+    /* margin: 0 10px; */
+    margin: 5px 2px;
     /* margin-right: 10px; Spacing between buttons */
     border: none;
     cursor: pointer;
@@ -36,3 +39,11 @@
 .quick-reply-btn:hover {
     background-color: #0056b3; /* Darker blue on hover */
 }
+
+.quick-replies-flex-container {
+    display: flex;
+    flex-wrap: wrap; /* Wrap buttons to the next line if they don't fit */
+    /* justify-content: space-around; Space buttons equally in available space */
+    justify-content: center;
+    gap: 5px; /* Use gap to add space between items, works if your browser support is recent enough */
+  }

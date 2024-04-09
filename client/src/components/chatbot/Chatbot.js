@@ -9,6 +9,8 @@ import MapComponent from './MapComponent'
 import QuickReplies from './QuickReplies'
 import './Chatbotstyle.css'
 import MapDirections from './MapDirections'
+import NFC from './NFC'
+import HAS from './HAS'
 
 
 
@@ -33,10 +35,6 @@ class Chatbot extends Component {
             showMap: false, // Indicates if the map should be shown
             mapLocation: null, // Holds the latitude and longitude for the map
             welcomeSent: false,
-            // mapComponentInitiated: false,
-            // quickRepliesInitiated: false,
-            // showMapDirections: false,
-          
         }
 
         if (cookies.get('userID') === undefined) {
@@ -89,8 +87,6 @@ class Chatbot extends Component {
     }
 
     componentDidMount() {
-        // this.df_event_query('Welcome')
-        // this.setState({ welcomeSent: true })
         if (!this.state.welcomeSent) { // Only send the welcome event if it hasn't been sent already
             this.df_event_query('Welcome');
         }
@@ -100,18 +96,10 @@ class Chatbot extends Component {
 
     componentDidUpdate() {
         this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-        // this.talkInput.focus()
+        
         if (this.talkInput) {
             this.talkInput.focus();
         }
-
-        // if (this.state.mapComponentInitiated && this.state.quickRepliesInitiated && !this.state.renderMapDirections) {
-        //     this.setState({
-        //         renderMapDirections: true,
-        //         mapComponentInitiated: false, // Reset to avoid repetitive rendering
-        //         quickRepliesInitiated: false, // Reset to avoid repetitive rendering
-        //     });
-        // }
     }
 
     _handleQuickReplyPayload(event, payload, text) {
@@ -208,15 +196,30 @@ class Chatbot extends Component {
         } else if (message.msg &&
             message.msg.payload &&
             message.msg.payload.fields &&
-            message.msg.payload.fields.quick_replies
+            (message.msg.payload.fields.quick_replies || message.msg.payload.fields.quick_buttons || message.msg.payload.fields.quick_asks || message.msg.payload.fields.quick_suggestions)
         ) {
-            console.log("Payload contents:", message.msg.payload.fields.quick_replies.listValue.values);
+            let chosenPayload;
+
+    if (message.msg.payload.fields.quick_replies) {
+        chosenPayload = message.msg.payload.fields.quick_replies.listValue.values;
+    } else if (message.msg.payload.fields.quick_buttons) {
+        chosenPayload = message.msg.payload.fields.quick_buttons.listValue.values;
+    } else if (message.msg.payload.fields.quick_asks) {
+        chosenPayload = message.msg.payload.fields.quick_asks.listValue.values;
+    } else if (message.msg.payload.fields.quick_suggestions) { // Logic to handle quick_suggestions
+        chosenPayload = message.msg.payload.fields.quick_suggestions.listValue.values;
+    }
+
+            const quickRepliesPayload = chosenPayload;
+          
             return <QuickReplies
                 text={message.msg.payload.fields.text ? message.msg.payload.fields.text : null}
                 key={i}
                 replyClick={this._handleQuickReplyPayload}
                 speaks={message.speaks}
-                payload={message.msg.payload.fields.quick_replies.listValue.values}/>;
+                
+                payload={quickRepliesPayload}
+                   />
               
         } else if(message.msg && message.msg.payload.fields.mapdir){
                 const mapData = message.msg.payload.fields.mapdir.structValue.fields;
@@ -233,7 +236,25 @@ class Chatbot extends Component {
                 />
             )
 
-        }
+         } else if(message.msg && message.msg.payload.fields.nfc){
+            const nfcData = message.msg.payload.fields.nfc.structValue.fields;
+            return (
+                <NFC
+            key={i} // Assuming 'i' is the index in a map function, ensuring each NFC component has a unique key.
+            url={nfcData.url.stringValue} // Assuming 'url' is directly accessible and is a string
+            description={nfcData.description.stringValue} // Assuming 'description' is directly accessible and is a string
+                />
+            )
+         } else if(message.msg && message.msg.payload.fields.HAS){
+            const hasData = message.msg.payload.fields.HAS.structValue.fields;
+            return (
+                <HAS
+            key={i} // Assuming 'i' is the index in a map function, ensuring each NFC component has a unique key.
+            url={hasData.url.stringValue} // Assuming 'url' is directly accessible and is a string
+            description={hasData.description.stringValue} // Assuming 'description' is directly accessible and is a string
+                />
+            )
+         }
         return null
     }
     renderMessages(returnedMessages) {

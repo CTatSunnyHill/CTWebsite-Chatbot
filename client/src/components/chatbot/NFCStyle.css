@@ -1,0 +1,26 @@
+.nfc-container {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f3f2f1; /* Chat bubble-like background */
+    padding: 4px 8px; /* Less padding for a more compact look */
+    border-radius: 15px; /* Rounded corners like typical chat bubbles */
+    margin: 1px 10px 4px 50px; /* Smaller margin for tighter spacing */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12); /* Subtle shadow for depth */
+    font-size: 0.875rem; /* Smaller font size for text */
+    max-width: calc(100% - 20px);
+  }
+  
+  .nfc-icon {
+    width: 16px; /* Smaller icon */
+    margin-right: 4px; /* Tighter spacing between icon and text */
+  }
+  
+  .nfc-link-text {
+    color: #6264A7; /* Link color */
+    text-decoration: none; /* No underline by default */
+    font-weight: normal; /* Match weight to your chat text */
+  }
+  
+  .nfc-link-text:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
