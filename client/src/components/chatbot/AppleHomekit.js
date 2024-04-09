@@ -1,7 +1,7 @@
 import React from 'react';
 import './NFCStyle.css'
 
-const HAS = (props) => {
+const AHK = (props) => {
     const { url, description } = props;
 
     return (
@@ -16,4 +16,4 @@ const HAS = (props) => {
     );
 };
 
-export default HAS;
+export default AHK;

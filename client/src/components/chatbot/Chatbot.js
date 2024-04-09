@@ -11,6 +11,11 @@ import './Chatbotstyle.css'
 import MapDirections from './MapDirections'
 import NFC from './NFC'
 import HAS from './HAS'
+import XAC from './XAC'
+import WPS from './WPS'
+import NER from './NER'
+import AHK from './AppleHomekit'
+import Estimotes from './Estimotes'
 
 
 
@@ -252,6 +257,51 @@ class Chatbot extends Component {
             key={i} // Assuming 'i' is the index in a map function, ensuring each NFC component has a unique key.
             url={hasData.url.stringValue} // Assuming 'url' is directly accessible and is a string
             description={hasData.description.stringValue} // Assuming 'description' is directly accessible and is a string
+                />
+            )
+         } else if(message.msg && message.msg.payload.fields.xac){
+            const xacData = message.msg.payload.fields.xac.structValue.fields;
+            return (
+                <XAC
+            key={i} // Assuming 'i' is the index in a map function, ensuring each NFC component has a unique key.
+            url={xacData.url.stringValue} // Assuming 'url' is directly accessible and is a string
+            description={xacData.description.stringValue} // Assuming 'description' is directly accessible and is a string
+                />
+            )
+         } else if(message.msg && message.msg.payload.fields.wps){
+            const wpsData = message.msg.payload.fields.wps.structValue.fields;
+            return (
+                <WPS
+            key={i} // Assuming 'i' is the index in a map function, ensuring each NFC component has a unique key.
+            url={wpsData.url.stringValue} // Assuming 'url' is directly accessible and is a string
+            description={wpsData.description.stringValue} // Assuming 'description' is directly accessible and is a string
+                />
+            )
+         } else if(message.msg && message.msg.payload.fields.ner){
+            const nerData = message.msg.payload.fields.ner.structValue.fields;
+            return (
+                <NER
+            key={i} // Assuming 'i' is the index in a map function, ensuring each NFC component has a unique key.
+            url={nerData.url.stringValue} // Assuming 'url' is directly accessible and is a string
+            description={nerData.description.stringValue} // Assuming 'description' is directly accessible and is a string
+                />
+            )
+         } else if(message.msg && message.msg.payload.fields.ahk){
+            const ahkData = message.msg.payload.fields.ahk.structValue.fields;
+            return (
+                <AHK
+            key={i} // Assuming 'i' is the index in a map function, ensuring each NFC component has a unique key.
+            url={ahkData.url.stringValue} // Assuming 'url' is directly accessible and is a string
+            description={ahkData.description.stringValue} // Assuming 'description' is directly accessible and is a string
+                />
+            )
+         } else if(message.msg && message.msg.payload.fields.estimotes){
+            const estimotesData = message.msg.payload.fields.estimotes.structValue.fields;
+            return (
+                <Estimotes
+            key={i} // Assuming 'i' is the index in a map function, ensuring each NFC component has a unique key.
+            url={estimotesData.url.stringValue} // Assuming 'url' is directly accessible and is a string
+            description={estimotesData.description.stringValue} // Assuming 'description' is directly accessible and is a string
                 />
             )
          }
