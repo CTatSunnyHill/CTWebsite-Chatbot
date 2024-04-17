@@ -17,9 +17,6 @@ import NER from './NER'
 import AHK from './AppleHomekit'
 import Estimotes from './Estimotes'
 
-
-
-
 const cookies = new Cookies()
 
 class Chatbot extends Component {
@@ -36,7 +33,6 @@ class Chatbot extends Component {
         this.state = {
             messages: [],
             showBot: true,
-            currentCardIndex: 0,
             showMap: false, // Indicates if the map should be shown
             mapLocation: null, // Holds the latitude and longitude for the map
             welcomeSent: false,
@@ -61,16 +57,17 @@ class Chatbot extends Component {
         let messages = [...this.state.messages, says]; // Accumulate messages for a single update
     
         const res = await axios.post('/api/df_text_query', { text: queryText, userID: cookies.get('userID') });
-    
         res.data.fulfillmentMessages.forEach((msg) => {
             console.log(JSON.stringify(msg))
             messages.push({
                 speaks: 'bot',
-                msg: msg
+                msg: msg,
             });
         });
     
-        this.setState({ messages: messages });
+        this.setState({ 
+            messages: messages,
+         });
     }
     
     async df_event_query(eventName) {
@@ -121,18 +118,6 @@ class Chatbot extends Component {
 
     }
 
-    nextCard = () => {
-        this.setState(prevState => ({
-            currentCardIndex: prevState.currentCardIndex + 1
-        }))
-    }
-    
-    prevCard = () => {
-        this.setState(prevState => ({
-            currentCardIndex: Math.max(prevState.currentCardIndex - 1, 0)
-        }))
-    }
-
     show(event) {
         event.preventDefault();
         event.stopPropagation();
@@ -147,16 +132,10 @@ class Chatbot extends Component {
 
     renderCards(cards) {
         if (cards.length === 0) return null;
-        
-        const card = cards[this.state.currentCardIndex];
         return (
-            <div className="card-slider-container">
-                <button className="slide-button prev-button" onClick={this.prevCard} disabled={this.state.currentCardIndex <= 0}>{"<"}</button>
                 <div className="card-container">
-                    <Card key={this.state.currentCardIndex} payload={card.structValue} />
+                    {cards.map((card, index) => (<Card key={index} payload={card.structValue} />))}
                 </div>
-                <button className="slide-button next-button" onClick={this.nextCard} disabled={this.state.currentCardIndex >= cards.length - 1}>{">"}</button>
-            </div>
         );
     } 
 
@@ -169,19 +148,11 @@ class Chatbot extends Component {
             // Adjusting to ensure we're only rendering cards when they exist
             if (cards && cards.length > 0) {
                 return (
-                    <div key={i} className="card-panel grey lighten-5 z-depth-1">
-                        <div style={{overflow: 'hidden'}}>
-                            <div className="col s2">
-                                <img src="/CT.png" alt="Bot" className="bot-logo" />
-                            </div>
-                            <div style={{ overflow: 'auto', overflowY: 'scroll' }}>
-                                {/* Updated to use renderCards for single card view with navigation */}
-                                <div style={{ height: 300, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                    {this.renderCards(cards)}
-                                </div>
-                            </div>
+                        <div className="card-outer-container"> 
+                                   <div className="card-display-container"> 
+                                        {this.renderCards(cards)}
+                                   </div>
                         </div>
-                    </div>
                 );
             }
 
@@ -201,7 +172,7 @@ class Chatbot extends Component {
         } else if (message.msg &&
             message.msg.payload &&
             message.msg.payload.fields &&
-            (message.msg.payload.fields.quick_replies || message.msg.payload.fields.quick_buttons || message.msg.payload.fields.quick_asks || message.msg.payload.fields.quick_suggestions)
+            (message.msg.payload.fields.quick_replies || message.msg.payload.fields.quick_buttons || message.msg.payload.fields.quick_asks)
         ) {
             let chosenPayload;
 
@@ -211,10 +182,7 @@ class Chatbot extends Component {
         chosenPayload = message.msg.payload.fields.quick_buttons.listValue.values;
     } else if (message.msg.payload.fields.quick_asks) {
         chosenPayload = message.msg.payload.fields.quick_asks.listValue.values;
-    } else if (message.msg.payload.fields.quick_suggestions) { // Logic to handle quick_suggestions
-        chosenPayload = message.msg.payload.fields.quick_suggestions.listValue.values;
-    }
-
+    } 
             const quickRepliesPayload = chosenPayload;
           
             return <QuickReplies
@@ -317,6 +285,7 @@ class Chatbot extends Component {
             return null
         }
     }
+
     _handleInputKeyPress(e) {
         if (e.key === 'Enter') {
             this.df_text_query(e.target.value)
@@ -347,14 +316,51 @@ class Chatbot extends Component {
             )
         }else {
             return (
-                <div style={{ minHeight: 0, maxHeight: 60, width: 60, position: 'fixed', bottom: 20, right: 20, border: '1px solid lightgray', borderRadius: '32px', cursor: 'pointer'}}>
-                    <img src={"/CT.png" } alt="CT ChatBot" className="bubble-image" onClick={this.show}/>
+                <div style={{
+                    position: 'fixed', 
+                    bottom: 20, 
+                    right: 20, 
+                    cursor: 'pointer', 
+                    zIndex: 1000, 
+                    display: 'flex', 
+                    alignItems: 'center'
+                }}>
+                    <div 
+                        id="minimized-text-block" 
+                        style={{
+                            backgroundColor: '#00B2FF', // Replace with your preferred color
+                            color: 'white',
+                            padding: '10px 20px',
+                            borderRadius: '15px',
+                            marginRight: '10px',
+                            fontSize: '0.9em',
+                            maxWidth: '250px', // Prevent the text block from getting too wide
+                            whiteSpace: 'normal', // Wrap text in the block
+                            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                            cursor: 'pointer',
+                            position: 'relative'
+                        }}
+                        onClick={this.show} // This will trigger the chatbot to open
+                        >
+                        I'm ClinBot, Clinical Technology's very own chatbot. How can I help?
+                    </div>
+                    <img 
+                        src={"/CT.png"} 
+                        alt="CT ChatBot" 
+                        style={{ 
+                            width: 60, 
+                            height: 60, 
+                            borderRadius: '50%', 
+                            objectFit: 'cover' 
+                        }}
+                        onClick={this.show}
+                    />
                     <div ref={(el) => { this.messagesEnd = el; }}
                          style={{ float:"left", clear: "both" }}>
                     </div>
                 </div>
-                )
-            }
+            );
+        }
     }
 }
   

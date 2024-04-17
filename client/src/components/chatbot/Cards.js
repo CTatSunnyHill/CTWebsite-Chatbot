@@ -14,7 +14,7 @@ const Card = (props) => {
                     {props.payload.fields.description.stringValue}
                 </div>
                 <div className="card-action">
-                    <a target="_blank" rel="noopener noreferrer" href={props.payload.fields.link.stringValue}>LEARN MORE</a>
+                    <a target="_blank" rel="noopener noreferrer" href={props.payload.fields.link.stringValue}> LEARN MORE </a>
                 </div>
             </div>
         </div>
@@ -22,3 +22,6 @@ const Card = (props) => {
 }
 
 export default Card;
+
+
+
