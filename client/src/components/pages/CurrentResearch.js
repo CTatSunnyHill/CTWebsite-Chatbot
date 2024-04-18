@@ -2,9 +2,11 @@ import React from 'react'
 import './StyleforPage.css'
 
 const Research = () => (
-    <div>
+    <div className="research-container">
+        <div className="research-content">
         <h3> Current Research </h3>
         <h4> Smart Home Automation </h4>
+        <img src="path-to-your-image.jpg" alt="Descriptive text about the image" />
         <ul>
             <li class="Bullet">Pioneering Matter-based smart home technology integration for children with special needs at Sunny Hill Health Centre.</li>
             <li class="Bullet">Utilizing smart assistants (Google Home, Alexa) with eye gaze devices, smart lightbulbs (Kasa), and smart plugs for enhanced autonomy.</li>
@@ -61,6 +63,7 @@ const Research = () => (
             <li class="Bullet">By leveraging Meta Rayban smart glasses, Clintech aims to revolutionize the way assistive gaming is delivered, creating personalized and immersive experiences that promote rehabilitation and improve patient outcomes.</li>
             <li class="Bullet">The potential of Meta Rayban smart glasses extends beyond gaming, with opportunities to integrate AR features into various healthcare applications, including patient monitoring and therapy delivery, further advancing Clintech's mission to leverage technology for enhanced patient care.</li>
         </ul>
+        </div>
         </div>
 )
 

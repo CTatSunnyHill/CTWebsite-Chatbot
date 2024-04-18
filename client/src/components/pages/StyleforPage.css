@@ -2,3 +2,25 @@
 .Bullet::before {
   content : "\2022  ";  
 }
+
+.research-container {
+    display: flex;
+    align-items: flex-start; /* Aligns items to the start of the flex container */
+    justify-content: space-between; /* Puts space between the content and the image */
+    margin-top: 20px; /* Adds some space at the top of the container */
+}
+
+.research-content {
+    flex: 1; /* Allows the content to grow and fill the space */
+    padding-right: 20px; /* Adds some space between the content and the image */
+}
+
+.research-image {
+    flex-basis: 300px; /* Adjust the width of the image container */
+}
+
+.research-image img {
+    width: 100%; /* Makes the image responsive within its container */
+    height: auto; /* Keeps the image aspect ratio */
+    border-radius: 10px; /* Optional: rounds the corners of the image */
+}

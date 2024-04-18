@@ -24,6 +24,7 @@ class Chatbot extends Component {
     talkInput
     constructor(props) {
         super(props)
+        this.endConversationTimeout = null;
         this._handleInputKeyPress = this._handleInputKeyPress.bind(this)
         this._handleQuickReplyPayload = this._handleQuickReplyPayload.bind(this)
 
@@ -64,10 +65,14 @@ class Chatbot extends Component {
                 msg: msg,
             });
         });
-    
-        this.setState({ 
+
+        if(res.data.intent && res.data.intent.displayName === 'Quit') {
+            this.hide();
+        } else {
+            this.setState({ 
             messages: messages,
          });
+        }
     }
     
     async df_event_query(eventName) {
@@ -92,9 +97,9 @@ class Chatbot extends Component {
         if (!this.state.welcomeSent) { // Only send the welcome event if it hasn't been sent already
             this.df_event_query('Welcome');
         }
+        this.resetEndConversationTimeout();
+        this.startSessionTimeout();
     }
-
-   
 
     componentDidUpdate() {
         this.messagesEnd.scrollIntoView({ behavior: "smooth" });
@@ -103,6 +108,47 @@ class Chatbot extends Component {
             this.talkInput.focus();
         }
     }
+
+    componentWillUnmount() {
+        if (this.sessionTimeout) {
+            clearTimeout(this.sessionTimeout);
+        }
+    }
+    
+
+    startSessionTimeout() {
+        this.sessionTimeout = setTimeout(() => {
+            this.hide();  // This function hides the chatbot and clears the session
+        }, 1800000);  // 1800000 milliseconds = 30 minutes
+    }
+
+    resetEndConversationTimeout() {
+        // Clear existing timeout
+        if (this.endConversationTimeout) {
+            clearTimeout(this.endConversationTimeout);
+        }
+    
+        // Set a new timeout
+        this.endConversationTimeout = setTimeout(() => {
+            // Add a message asking if the user wants to end the conversation
+            let endConversationPrompt = {
+                speaks: 'bot',
+                msg: {
+                    text: {
+                        text: "Do you wish to end this conversation? Type 'quit' to exit or 'continue' to keep chatting.If there is no response from you in 30 minutes, I will move onto supporting others.Thank you for understanding"
+                    }
+                }
+            };
+    
+            this.setState(prevState => ({
+                messages: [...prevState.messages, endConversationPrompt]
+            }));
+
+            this.resetEndConversationTimeout();
+
+        }, 900000); // 900000 milliseconds = 15 minutes
+    }
+    
 
     _handleQuickReplyPayload(event, payload, text) {
         event.preventDefault();
@@ -121,13 +167,24 @@ class Chatbot extends Component {
     show(event) {
         event.preventDefault();
         event.stopPropagation();
-        this.setState({ showBot: true });
+        this.setState({ 
+            showBot: true,
+            messages: [],
+            welcomeSent: false
+         });
+         this.df_event_query('Welcome');
     }
 
     hide(event) {
-        event.preventDefault();
-        event.stopPropagation();
-        this.setState({ showBot: false });
+        if(event){
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    
+        this.setState({ 
+            showBot: false,
+            messages: []// Clear messages on close
+         });
     }
 
     renderCards(cards) {
@@ -288,8 +345,16 @@ class Chatbot extends Component {
 
     _handleInputKeyPress(e) {
         if (e.key === 'Enter') {
-            this.df_text_query(e.target.value)
-            e.target.value = ''
+            // this.df_text_query(e.target.value)
+            const userMessage = e.target.value.toLowerCase();
+            e.target.value = '';
+
+            if (userMessage === 'quit') {
+                this.hide(); // Use the hide function to end the chat
+            } else {
+                this.df_text_query(userMessage);
+                this.resetEndConversationTimeout(); // Reset the timeout since the user is still interacting
+            }
         }
     }
     render() {
