@@ -3,24 +3,149 @@
   content : "\2022  ";  
 }
 
-.research-container {
+/* .flex-container {
     display: flex;
-    align-items: flex-start; /* Aligns items to the start of the flex container */
-    justify-content: space-between; /* Puts space between the content and the image */
-    margin-top: 20px; /* Adds some space at the top of the container */
-}
+    justify-content: space-between; 
+    align-items: center;
+    height: 270px; 
+  }
+  
+  .text-section, .canvas-section {
+    flex: 1;
+  }
+  
+  .canvas-section {
+    background: #fff; 
+  }
+  
+  .text-section {
+    padding: 10px;
+  } */
 
-.research-content {
-    flex: 1; /* Allows the content to grow and fill the space */
-    padding-right: 20px; /* Adds some space between the content and the image */
-}
+  /* .card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    margin: 10px;
+    overflow: hidden;
+  }
+  
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+  }
+  
+  .text-section {
+    max-width: 90%; 
+  } */
+  /* .canvas-section {
+    height: 500px;
+    
+  } */
+  
+  /* #spline-canvas {
+    width: 50%; 
+    height: 300px; 
+  }
+   */
 
-.research-image {
-    flex-basis: 300px; /* Adjust the width of the image container */
-}
+   :root {
+    --var-padding: 1em;
+    --highlight: hsl(230, 38%, 46%);
+    --highlight-dark: hsl(230, 38%, 36%);
+    --main-column-width: 25em;
+  }
+  
+  .app {
+    display: flex;
+    /* flex-direction: column; */
+    gap: 1em;
+    margin: 3em;
+    align-items: start;
+  }
 
-.research-image img {
-    width: 100%; /* Makes the image responsive within its container */
-    height: auto; /* Keeps the image aspect ratio */
-    border-radius: 10px; /* Optional: rounds the corners of the image */
-}
+  .text-section, .animation-section {
+    background: #fff;
+    padding: var(--var-padding);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    max-width: 500px;
+    max-height: 500px;
+    overflow-wrap: break-word;
+
+  }
+  
+  .animation-section {
+    background: #fff;
+    padding: var(--var-padding);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 500px; 
+    height: 500px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  #spline-canvas-1 {
+    /* flex-basis: auto; Adjust this to give more or less space to the animation relative to the text */
+    width: 500px;
+    height: 500px;
+    /* height: auto; Keep the aspect ratio of the canvas */
+    border-radius: 8px; /* If the canvas supports transparency */
+    
+  }
+
+  #spline-canvas-2 {
+    /* flex-basis: auto; Adjust this to give more or less space to the animation relative to the text */
+    width: 100%;
+    height: 98%;
+    /* height: auto; Keep the aspect ratio of the canvas */
+    border-radius: 8px; /* If the canvas supports transparency */
+    
+  }
+
+  .highlighted-title {
+    background-color: #ffab40; /* Replace with the actual color of your nav bar */
+    color: white;
+    padding: 10px 15px; /* Adjust the padding as needed */
+    border-radius: 8px;
+    font-size: 1.5em; /* Adjust font size as needed */
+    font-weight: bold; /* Optional: if you want the title to be bold */
+    display: inline-block; /* Makes the div inline but with block properties */
+    margin-bottom: 10px; /* Space below the title */
+  }
+  
+ 
+  /* .text-section p {
+    overflow-wrap: break-word;
+  } */
+  
+  /* Responsive adjustments can be made as needed */
+  @media (min-width: 37.5em) {
+    :root {
+      --var-padding: 3em;
+    }
+    .app {
+      justify-content: center;
+    } 
+     /* .text-section {
+      max-width: var(--main-column-width);
+    } */
+    /* .card {
+        flex-direction: column;
+      }
+    
+      .card-text,
+      #spline-canvas {
+        flex-basis: auto;
+        width: 100%; 
+      } */
+      
+  }
+  
+  
