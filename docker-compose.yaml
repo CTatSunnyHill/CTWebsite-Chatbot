@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  backend:
+    build: ./
+    ports:
+      - '3001:3001'
+    volumes:
+      - ./index.js:/app/index.js
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+      - ./chatbot:/app/chatbot
+      - ./model:/app/model
+      - ./router:/app/router
+      - /app/node_modules
+      - ./config:/app/config
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+    container_name: chatbot-backend
+  frontend:
+    build: ./client
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+    container_name: chatbot-frontend 
+  

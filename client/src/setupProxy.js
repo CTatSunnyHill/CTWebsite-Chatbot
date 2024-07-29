@@ -1,5 +1,5 @@
 const { createProxyMiddleware } = require('http-proxy-middleware')
 
 module.exports = (app) => {
-    app.use(createProxyMiddleware('/api', {target: "http://localhost:3001"}))
+    app.use(createProxyMiddleware('/api', {target: "http://backend:3001"}))
 }
